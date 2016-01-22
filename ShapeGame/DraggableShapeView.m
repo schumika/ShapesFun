@@ -8,14 +8,69 @@
 
 #import "DraggableShapeView.h"
 
+@interface DraggableShapeView ()
+
+@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+
+@end
+
 @implementation DraggableShapeView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)awakeFromNib {
+    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    self.panGestureRecognizer.minimumNumberOfTouches = 1;
 }
-*/
+
+- (void)configureWithShapeType:(ShapeType)shapeType andColor:(UIColor *)color isHole:(BOOL)isHole {
+    [self addGestureRecognizer:self.panGestureRecognizer];
+    self.originalCenter = self.center;
+    
+    [super configureWithShapeType:shapeType andColor:color isHole:NO];
+}
+
+- (void)resetToOriginalPosition {
+    self.center = self.originalCenter;
+    self.isMatched = NO;
+}
+
+- (void)dealloc {
+    [self removeGestureRecognizer:self.panGestureRecognizer];
+}
+
+- (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture {
+    
+    CGPoint translation = [panGesture translationInView:self];
+    panGesture.view.center = CGPointMake(panGesture.view.center.x + translation.x,
+                                         panGesture.view.center.y + translation.y);
+    [panGesture setTranslation:CGPointMake(0, 0) inView:self];
+    
+    if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled) {
+        if ([DraggableShapeView distanceFromHole:self.holeCenter toShape:self.center] > 30.0) {
+            [self resetToOriginalPosition];
+        } else {
+            if (self.shapeType == ShapeTypeStar || self.shapeType == ShapeTypeHeart) {
+                self.center = CGPointMake(self.holeCenter.x + 3.0, self.holeCenter.y + 3.0);
+            } else {
+                self.center = self.holeCenter;
+            }
+            
+            self.isMatched = YES;
+            
+            __weak typeof(ShapeView *) weakSelf = self;
+            if ([self.delegate respondsToSelector:@selector(shapeViewGotMatched:)]) {
+                [self.delegate shapeViewGotMatched:weakSelf];
+            }
+        }
+    }
+}
+
+#pragma mark - Private methods
+
++ (CGFloat)distanceFromHole:(CGPoint)holeCenter toShape:(CGPoint)shapeCenter {
+    CGFloat distance = 0.0;
+    distance = sqrt((shapeCenter.x - holeCenter.x) * (shapeCenter.x - holeCenter.x) + (shapeCenter.y - holeCenter.y) * (shapeCenter.y - holeCenter.y));
+    
+    return distance;
+}
 
 @end

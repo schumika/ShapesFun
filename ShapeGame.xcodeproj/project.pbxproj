@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		273FCDB41C5221EA00CE2E60 /* DraggableShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 273FCDB31C5221EA00CE2E60 /* DraggableShapeView.m */; };
+		273FCDBF1C527C7200CE2E60 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273FCDBE1C527C7200CE2E60 /* GameplayKit.framework */; };
 		2760BC4D1C51134A00B1DBDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760BC4C1C51134A00B1DBDE /* main.m */; };
 		2760BC501C51134A00B1DBDE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760BC4F1C51134A00B1DBDE /* AppDelegate.m */; };
 		2760BC531C51134A00B1DBDE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760BC521C51134A00B1DBDE /* ViewController.m */; };
 		2760BC561C51134A00B1DBDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2760BC541C51134A00B1DBDE /* Main.storyboard */; };
 		2760BC581C51134A00B1DBDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2760BC571C51134A00B1DBDE /* Assets.xcassets */; };
 		2760BC5B1C51134A00B1DBDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2760BC591C51134A00B1DBDE /* LaunchScreen.storyboard */; };
+		2760BC641C511DFE00B1DBDE /* ShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760BC631C511DFE00B1DBDE /* ShapeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		273FCDB21C5221EA00CE2E60 /* DraggableShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableShapeView.h; sourceTree = "<group>"; };
+		273FCDB31C5221EA00CE2E60 /* DraggableShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableShapeView.m; sourceTree = "<group>"; };
+		273FCDBE1C527C7200CE2E60 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
 		2760BC481C51134A00B1DBDE /* ShapeGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShapeGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2760BC4C1C51134A00B1DBDE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2760BC4E1C51134A00B1DBDE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -26,6 +32,8 @@
 		2760BC571C51134A00B1DBDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2760BC5A1C51134A00B1DBDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2760BC5C1C51134A00B1DBDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2760BC621C511DFE00B1DBDE /* ShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeView.h; sourceTree = "<group>"; };
+		2760BC631C511DFE00B1DBDE /* ShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShapeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				273FCDBF1C527C7200CE2E60 /* GameplayKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +71,10 @@
 				2760BC4F1C51134A00B1DBDE /* AppDelegate.m */,
 				2760BC511C51134A00B1DBDE /* ViewController.h */,
 				2760BC521C51134A00B1DBDE /* ViewController.m */,
+				2760BC621C511DFE00B1DBDE /* ShapeView.h */,
+				2760BC631C511DFE00B1DBDE /* ShapeView.m */,
+				273FCDB21C5221EA00CE2E60 /* DraggableShapeView.h */,
+				273FCDB31C5221EA00CE2E60 /* DraggableShapeView.m */,
 				2760BC541C51134A00B1DBDE /* Main.storyboard */,
 				2760BC571C51134A00B1DBDE /* Assets.xcassets */,
 				2760BC591C51134A00B1DBDE /* LaunchScreen.storyboard */,
@@ -74,6 +87,7 @@
 		2760BC4B1C51134A00B1DBDE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				273FCDBE1C527C7200CE2E60 /* GameplayKit.framework */,
 				2760BC4C1C51134A00B1DBDE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -150,7 +164,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2760BC531C51134A00B1DBDE /* ViewController.m in Sources */,
+				273FCDB41C5221EA00CE2E60 /* DraggableShapeView.m in Sources */,
 				2760BC501C51134A00B1DBDE /* AppDelegate.m in Sources */,
+				2760BC641C511DFE00B1DBDE /* ShapeView.m in Sources */,
 				2760BC4D1C51134A00B1DBDE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +283,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aj.ShapeGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -278,6 +295,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aj.ShapeGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -300,6 +318,7 @@
 				2760BC611C51134A00B1DBDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

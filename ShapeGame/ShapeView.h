@@ -8,6 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    ShapeTypeCircle = 0,
+    ShapeTypeSquare,
+    ShapeTypeRectangle,
+    ShapeTypeDiamond,
+    ShapeTypeStar,
+    //ShapeTypeFlower,
+    ShapeTypeHeart
+} ShapeType;
+
+
+
 @interface ShapeView : UIView
 
+@property (nonatomic, assign) ShapeType shapeType;
+@property (nonatomic, strong) UIColor *shapeColor;
+@property (nonatomic, assign) BOOL isHole;
+
+- (void)configureWithShapeType:(ShapeType)shapeType andColor:(UIColor *)color isHole:(BOOL)isHole;
+
 @end
+
