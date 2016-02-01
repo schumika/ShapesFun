@@ -29,6 +29,10 @@
     self.shapeColor = color;
     self.isHole = isHole;
     
+    for (CAShapeLayer *shapelayer in self.layer.sublayers) {
+        [shapelayer removeFromSuperlayer];
+    }
+    
     switch (shapeType) {
         case ShapeTypeCircle: {
             if (self.isHole) {

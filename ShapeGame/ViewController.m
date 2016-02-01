@@ -27,6 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -36,9 +38,12 @@
     self.centerShape.delegate = self;
     self.rightShape.delegate = self;
     
-    [self pairDraggableShape:self.leftShape withHole:self.leftHole ofShapeType:ShapeTypeStar andColor:[ViewController getRandomColor]];
-    [self pairDraggableShape:self.centerShape withHole:self.rightHole ofShapeType:ShapeTypeDiamond andColor:[ViewController getRandomColor]];
-    [self pairDraggableShape:self.rightShape withHole:self.centerHole ofShapeType:ShapeTypeHeart andColor:[ViewController getRandomColor]];
+    NSArray *threeColors = [self getThreeRandomColors];
+    NSArray *threeShapes = [self getThreeRandomShapes];
+    
+    [self pairDraggableShape:self.leftShape withHole:self.leftHole ofShapeType:((NSNumber *)threeShapes[0]).intValue andColor:threeColors[0]];
+    [self pairDraggableShape:self.centerShape withHole:self.rightHole ofShapeType:((NSNumber *)threeShapes[1]).intValue andColor:threeColors[1]];
+    [self pairDraggableShape:self.rightShape withHole:self.centerHole ofShapeType:((NSNumber *)threeShapes[2]).intValue andColor:threeColors[2]];
 }
 
 - (void)pairDraggableShape:(DraggableShapeView *)draggableShapeView withHole:(ShapeView *)holeView ofShapeType:(ShapeType)shapeType andColor:(UIColor *)color {
@@ -48,19 +53,9 @@
     draggableShapeView.holeCenter = holeView.center;
 }
 
-+ (UIColor *)getRandomColor {
-    
-    GKRandomDistribution *randDist = [[GKRandomDistribution alloc] initWithRandomSource:[GKRandomSource sharedRandom]
-                                                                            lowestValue:0 highestValue:255];
-    NSInteger red = [randDist nextInt];
-    NSInteger blue = [randDist nextInt];
-    NSInteger green = [randDist nextInt];
-    
-    return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
+#pragma mark - DraggableShapeViewDelegate methods
 
-}
-
-- (void)shapeViewGotMatched:(ShapeView *)shapeView {
+- (void)shapeViewGotMatched:(DraggableShapeView *)shapeView {
     if (self.leftShape.isMatched && self.rightShape.isMatched && self.centerShape.isMatched) {
         UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:@"Well done!" preferredStyle:UIAlertControllerStyleAlert];
         [ac addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -69,14 +64,31 @@
             [self.rightShape resetToOriginalPosition];
             [self.centerShape resetToOriginalPosition];
             
-            [self pairDraggableShape:self.leftShape withHole:self.leftHole ofShapeType:ShapeTypeStar andColor:[ViewController getRandomColor]];
-            [self pairDraggableShape:self.centerShape withHole:self.rightHole ofShapeType:ShapeTypeDiamond andColor:[ViewController getRandomColor]];
-            [self pairDraggableShape:self.rightShape withHole:self.centerHole ofShapeType:ShapeTypeHeart andColor:[ViewController getRandomColor]];
+            NSArray *threeColors = [self getThreeRandomColors];
+            NSArray *threeShapes = [self getThreeRandomShapes];
+            
+            [self pairDraggableShape:self.leftShape withHole:self.leftHole ofShapeType:((NSNumber *)threeShapes[0]).intValue andColor:threeColors[0]];
+            [self pairDraggableShape:self.centerShape withHole:self.rightHole ofShapeType:((NSNumber *)threeShapes[1]).intValue andColor:threeColors[1]];
+            [self pairDraggableShape:self.rightShape withHole:self.centerHole ofShapeType:((NSNumber *)threeShapes[2]).intValue andColor:threeColors[2]];
             
         }]];
         [self presentViewController:ac animated:YES completion:NULL];
     }
 }
 
+#pragma mark - Helper methods
+
+- (NSArray *)getThreeRandomColors {
+    
+    NSArray *arr = [[GKRandomSource sharedRandom] arrayByShufflingObjectsInArray:@[[UIColor lightGrayColor], [UIColor redColor], [UIColor greenColor], [UIColor blueColor], [UIColor yellowColor], [UIColor magentaColor], [UIColor orangeColor], [UIColor purpleColor]]];
+    
+    return @[arr[0], arr[1], arr[2]];
+}
+
+- (NSArray *)getThreeRandomShapes {
+    NSArray *arr = [[GKRandomSource sharedRandom] arrayByShufflingObjectsInArray:@[@(ShapeTypeCircle), @(ShapeTypeSquare), @(ShapeTypeRectangle), @(ShapeTypeDiamond), @(ShapeTypeStar), @(ShapeTypeHeart)]];
+    
+    return @[arr[0], arr[1], arr[2]];
+}
 
 @end

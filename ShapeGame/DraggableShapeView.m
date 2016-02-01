@@ -53,7 +53,7 @@
         
         self.isMatched = YES;
         
-        __weak typeof(ShapeView *) weakSelf = self;
+        __weak typeof(DraggableShapeView *) weakSelf = self;
         if ([self.delegate respondsToSelector:@selector(shapeViewGotMatched:)]) {
             [self.delegate shapeViewGotMatched:weakSelf];
         }

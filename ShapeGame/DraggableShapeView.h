@@ -22,6 +22,6 @@
 
 @protocol DraggableShapeViewDelegate <NSObject>
 
-- (void)shapeViewGotMatched:(ShapeView *)shapeView;
+- (void)shapeViewGotMatched:(DraggableShapeView *)shapeView;
 
 @end
