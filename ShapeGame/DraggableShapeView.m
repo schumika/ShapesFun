@@ -44,24 +44,24 @@
                                          panGesture.view.center.y + translation.y);
     [panGesture setTranslation:CGPointMake(0, 0) inView:self];
     
-    if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled) {
-        if ([DraggableShapeView distanceFromHole:self.holeCenter toShape:self.center] > 30.0) {
-            [self resetToOriginalPosition];
+    if ([DraggableShapeView distanceFromHole:self.holeCenter toShape:self.center] < 30.0) {
+        if (self.shapeType == ShapeTypeStar || self.shapeType == ShapeTypeHeart) {
+            self.center = CGPointMake(self.holeCenter.x + 3.0, self.holeCenter.y + 3.0);
         } else {
-            if (self.shapeType == ShapeTypeStar || self.shapeType == ShapeTypeHeart) {
-                self.center = CGPointMake(self.holeCenter.x + 3.0, self.holeCenter.y + 3.0);
-            } else {
-                self.center = self.holeCenter;
-            }
-            
-            self.isMatched = YES;
-            
-            __weak typeof(ShapeView *) weakSelf = self;
-            if ([self.delegate respondsToSelector:@selector(shapeViewGotMatched:)]) {
-                [self.delegate shapeViewGotMatched:weakSelf];
-            }
+            self.center = self.holeCenter;
         }
+        
+        self.isMatched = YES;
+        
+        __weak typeof(ShapeView *) weakSelf = self;
+        if ([self.delegate respondsToSelector:@selector(shapeViewGotMatched:)]) {
+            [self.delegate shapeViewGotMatched:weakSelf];
+        }
+    } else if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled) {
+        [self resetToOriginalPosition];
     }
+    
+    
 }
 
 #pragma mark - Private methods
