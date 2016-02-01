@@ -51,10 +51,11 @@
             self.center = self.holeCenter;
         }
         
-        self.isMatched = YES;
+        
         
         __weak typeof(DraggableShapeView *) weakSelf = self;
-        if ([self.delegate respondsToSelector:@selector(shapeViewGotMatched:)]) {
+        if (self.isMatched == NO && [self.delegate respondsToSelector:@selector(shapeViewGotMatched:)]) {
+            weakSelf.isMatched = YES;
             [self.delegate shapeViewGotMatched:weakSelf];
         }
     } else if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled) {
