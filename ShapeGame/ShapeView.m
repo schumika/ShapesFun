@@ -142,6 +142,8 @@
     circle.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 2.0*radius, 2.0*radius)
                                              cornerRadius:radius].CGPath;
     circle.fillColor = fillColor.CGColor;
+    circle.borderColor = kBackgroundColor.CGColor;
+    circle.borderWidth = 2.0;
     
     return circle;
 }
