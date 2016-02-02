@@ -117,8 +117,8 @@
     }
     
     if (completed) {
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:@"Bravo!" preferredStyle:UIAlertControllerStyleAlert];
-        [ac addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:@"Well done!" preferredStyle:UIAlertControllerStyleAlert];
+        [ac addAction:[UIAlertAction actionWithTitle:@"Thanks" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             for (DraggableShapeView *shape in self.shapes) {
                 [shape resetToOriginalPosition];
