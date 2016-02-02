@@ -8,6 +8,8 @@
 
 #import "ShapeView.h"
 
+#define kDefaultFrame CGRectMake(0.0, 0.0, 137.0, 108.0)
+
 #define kBackgroundColor [UIColor colorWithRed:102.0/255.0 green:1.0 blue:204./255.0 alpha:1.0]
 
 #define kCircleRadius           50.0
@@ -23,6 +25,17 @@
 
 @implementation ShapeView
 
+- (instancetype)initWithDefaultFrame {
+    self = [super initWithFrame:kDefaultFrame];
+    
+    if (!self) return nil;
+    
+    return self;
+}
+
++ (instancetype)shapeView {
+    return [[self alloc] initWithDefaultFrame];
+}
 
 - (void)configureWithShapeType:(ShapeType)shapeType andColor:(UIColor *)color isHole:(BOOL)isHole {
     self.shapeType = shapeType;

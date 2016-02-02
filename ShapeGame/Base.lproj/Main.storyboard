@@ -23,30 +23,6 @@
                                 <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60D-go-yD1" customClass="ShapeView">
-                                <rect key="frame" x="20" y="72" width="137" height="108"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IHn-eC-ARQ" customClass="ShapeView">
-                                <rect key="frame" x="323" y="72" width="137" height="108"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="toA-W6-pqP" customClass="ShapeView">
-                                <rect key="frame" x="172" y="72" width="137" height="108"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NIp-j4-Bjx" customClass="DraggableShapeView">
-                                <rect key="frame" x="20" y="192" width="137" height="108"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDe-ZP-sgd" customClass="DraggableShapeView">
-                                <rect key="frame" x="323" y="192" width="137" height="108"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKh-0F-IBt" customClass="DraggableShapeView">
-                                <rect key="frame" x="172" y="192" width="137" height="108"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -57,14 +33,6 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <outlet property="centerHole" destination="toA-W6-pqP" id="7FN-A2-XAd"/>
-                        <outlet property="centerShape" destination="IKh-0F-IBt" id="tSL-di-fWp"/>
-                        <outlet property="leftHole" destination="60D-go-yD1" id="N3k-Lo-GK0"/>
-                        <outlet property="leftShape" destination="NIp-j4-Bjx" id="1I8-zx-Mi8"/>
-                        <outlet property="rightHole" destination="IHn-eC-ARQ" id="4Re-uM-U4P"/>
-                        <outlet property="rightShape" destination="XDe-ZP-sgd" id="dFb-Fk-PMD"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

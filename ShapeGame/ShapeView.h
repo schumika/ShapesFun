@@ -26,6 +26,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIColor *shapeColor;
 @property (nonatomic, assign) BOOL isHole;
 
+- (instancetype)initWithDefaultFrame;
++ (instancetype)shapeView;
+
 - (void)configureWithShapeType:(ShapeType)shapeType andColor:(UIColor *)color isHole:(BOOL)isHole;
 
 @end

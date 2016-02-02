@@ -16,6 +16,18 @@
 
 @implementation DraggableShapeView
 
+
+- (instancetype)initWithDefaultFrame {
+    self = [super initWithDefaultFrame];
+    
+    if (!self) return nil;
+    
+    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    self.panGestureRecognizer.minimumNumberOfTouches = 1;
+    
+    return self;
+}
+
 - (void)awakeFromNib {
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     self.panGestureRecognizer.minimumNumberOfTouches = 1;
@@ -51,18 +63,19 @@
             self.center = self.holeCenter;
         }
         
-        
-        
         __weak typeof(DraggableShapeView *) weakSelf = self;
         if (self.isMatched == NO && [self.delegate respondsToSelector:@selector(shapeViewGotMatched:)]) {
             weakSelf.isMatched = YES;
-            [self.delegate shapeViewGotMatched:weakSelf];
+            [weakSelf.delegate shapeViewGotMatched:weakSelf];
+            [weakSelf removeGestureRecognizer:weakSelf.panGestureRecognizer];
         }
     } else if (panGesture.state == UIGestureRecognizerStateEnded || panGesture.state == UIGestureRecognizerStateCancelled) {
         [self resetToOriginalPosition];
+    } else if (panGesture.state == UIGestureRecognizerStateBegan) {
+        // view should be brought to front
+        [self.superview bringSubviewToFront:self];
+        [self resetToOriginalPosition];
     }
-    
-    
 }
 
 #pragma mark - Private methods
