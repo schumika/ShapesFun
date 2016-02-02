@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSArray *holes;
 @property (nonatomic, strong) NSArray *shapes;
 
+@property (nonatomic, strong) NSMutableArray *pairs;
+
 @end
 
 
@@ -28,6 +30,7 @@
     
     NSMutableArray *holesArray = [NSMutableArray array];
     NSMutableArray *shapesArray = [NSMutableArray array];
+    self.pairs = [NSMutableArray array];
     
     for (int shapeIndex = 0; shapeIndex < kNumberOfShapes; shapeIndex++) {
         ShapeView *hole = [ShapeView shapeView];
@@ -72,10 +75,13 @@
     
     NSArray *holePositions = [self getArrayWithThreeRandomElementsFromArray:@[@(0), @(1), @(2)]];
     NSArray *shapePositions = [self getArrayWithThreeRandomElementsFromArray:@[@(0), @(1), @(2)]];
+    [self.pairs removeAllObjects];
     
     for (int pos = 0; pos < [self.shapes count]; pos++) {
         [self pairShapeType:((NSNumber *)threeShapes[pos]).intValue ofColor:threeColors[pos]
                  inPosition:[(NSNumber *)shapePositions[pos] intValue] withHoleInPosition:[(NSNumber *)holePositions[pos] intValue]];
+        
+        [self.pairs addObject:@{@"hole":holePositions[pos], @"shape":shapePositions[pos]}];
     }
 }
 
@@ -83,6 +89,25 @@
 #pragma mark - DraggableShapeViewDelegate methods
 
 - (void)shapeViewGotMatched:(DraggableShapeView *)shapeView {
+    __block ShapeView *holeView = nil;
+    
+    [UIView animateWithDuration:0.2 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:5 options:UIViewAnimationOptionLayoutSubviews animations:^{
+        shapeView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+        
+        for (NSDictionary *pair in self.pairs) {
+            NSNumber *shapePos = pair[@"shape"];
+            if (self.shapes[shapePos.intValue] == shapeView) {
+                holeView = self.holes[((NSNumber *)pair[@"hole"]).intValue];
+                break;
+            }
+        }
+        
+        holeView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+    } completion:^(BOOL finished) {
+        shapeView.transform = CGAffineTransformIdentity;
+        holeView.transform = CGAffineTransformIdentity;
+    }];
+    
     BOOL completed = YES;
     for (DraggableShapeView *shape in self.shapes) {
         if (!shape.isMatched) {
@@ -109,14 +134,28 @@
 #pragma mark - Helper methods
 
 - (void)pairShapeType:(ShapeType)shapeType ofColor:(UIColor *)color inPosition:(int)shapePosition withHoleInPosition:(int)holePosition {
-    ShapeView *holeView = self.holes[holePosition];;
+    ShapeView *holeView = self.holes[holePosition];
     DraggableShapeView *shapeView = self.shapes[shapePosition];
     
-    [shapeView configureWithShapeType:shapeType andColor:color isHole:NO];
-    [holeView configureWithShapeType:shapeType andColor:color isHole:YES];
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:5 options:UIViewAnimationOptionLayoutSubviews animations:^{
+        [shapeView configureWithShapeType:shapeType andColor:color isHole:NO];
+        [holeView configureWithShapeType:shapeType andColor:color isHole:YES];
+        
+        shapeView.transform = CGAffineTransformMakeRotation((CGFloat)(M_PI));
+        holeView.transform = CGAffineTransformMakeRotation((CGFloat)(M_PI));
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:5 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            shapeView.transform = CGAffineTransformMakeRotation((CGFloat)(M_PI));
+            holeView.transform = CGAffineTransformMakeRotation((CGFloat)(M_PI));
+        } completion:^(BOOL finished) {
+            shapeView.transform = CGAffineTransformIdentity;
+            holeView.transform = CGAffineTransformIdentity;
+        }];
+    }];
     
     shapeView.holeCenter = holeView.center;
 }
+     
 
 - (void)moveShape:(ShapeView *)shapeView toOrigin:(CGPoint)newOrigin {
     CGRect holeFrame = shapeView.frame;
