@@ -71,7 +71,7 @@
 
 - (void)generateShapes {
     NSArray *threeColors = [self getArrayWithThreeRandomElementsFromArray:@[[UIColor lightGrayColor], [UIColor redColor], [UIColor greenColor], [UIColor blueColor], [UIColor yellowColor], [UIColor magentaColor], [UIColor orangeColor], [UIColor purpleColor]]];
-    NSArray *threeShapes = [self getArrayWithThreeRandomElementsFromArray:@[@(ShapeTypeCircle), @(ShapeTypeSquare), @(ShapeTypeRectangle), @(ShapeTypeDiamond), @(ShapeTypeStar), @(ShapeTypeHeart)]];
+    NSArray *threeShapes = [self getArrayWithThreeRandomElementsFromArray:@[@(ShapeTypeCircle), @(ShapeTypeTriangle), @(ShapeTypeSquare), @(ShapeTypeRectangle), @(ShapeTypeDiamond), @(ShapeTypeStar), @(ShapeTypeHeart)]];
     
     NSArray *holePositions = [self getArrayWithThreeRandomElementsFromArray:@[@(0), @(1), @(2)]];
     NSArray *shapePositions = [self getArrayWithThreeRandomElementsFromArray:@[@(0), @(1), @(2)]];

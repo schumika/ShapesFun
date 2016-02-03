@@ -11,6 +11,7 @@
 typedef enum : NSUInteger {
     ShapeTypeCircle = 0,
     ShapeTypeSquare,
+    ShapeTypeTriangle,
     ShapeTypeRectangle,
     ShapeTypeDiamond,
     ShapeTypeStar,

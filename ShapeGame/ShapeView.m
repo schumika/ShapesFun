@@ -13,6 +13,7 @@
 #define kBackgroundColor [UIColor colorWithRed:102.0/255.0 green:1.0 blue:204./255.0 alpha:1.0]
 
 #define kCircleRadius           50.0
+#define kTriangleSide           90.0
 #define kSquareSide             90.0
 #define kRectangleShortSide     70.0
 #define kRectangleLongSide      120.0
@@ -76,6 +77,23 @@
                 square.position = CGPointMake((self.frame.size.width - kSquareSide) / 2.0, (self.frame.size.height - kSquareSide) / 2.0);
                 [self.layer addSublayer:square];
             }
+            break;
+        }
+        case ShapeTypeTriangle: {
+            if (self.isHole) {
+                self.backgroundColor = self.shapeColor;
+                
+                CAShapeLayer *triangle = [ShapeView triangleWithSide:(kTriangleSide + 3.0) andFillColor:kBackgroundColor];
+                CGFloat triangleHeight = (kTriangleSide + 1.0) * sqrt(3) / 2.0;
+                triangle.position = CGPointMake((self.frame.size.width - (kTriangleSide + 3.0)) / 2.0, (self.frame.size.height - (triangleHeight + 3.0)) / 2.0);
+                [self.layer addSublayer:triangle];
+            } else {
+                CAShapeLayer *triangle = [ShapeView triangleWithSide:kTriangleSide andFillColor:self.shapeColor];
+                CGFloat triangleHeight = kTriangleSide * sqrt(3) / 2.0;
+                triangle.position = CGPointMake((self.frame.size.width - kTriangleSide) / 2.0, (self.frame.size.height - triangleHeight) / 2.0);
+                [self.layer addSublayer:triangle];
+            }
+            
             break;
         }
         case ShapeTypeRectangle: {
@@ -159,6 +177,20 @@
     circle.borderWidth = 2.0;
     
     return circle;
+}
+
++ (CAShapeLayer *)triangleWithSide:(CGFloat)side andFillColor:(UIColor *)fillColor {
+    CAShapeLayer *triangle = [CAShapeLayer layer];
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    CGFloat triangleHeight = side * sqrt(3) / 2;
+    [path moveToPoint:CGPointMake(0.0, triangleHeight)];
+    [path addLineToPoint:CGPointMake(side, triangleHeight)];
+    [path addLineToPoint:CGPointMake(side / 2, 0.0)];
+    [path closePath];
+    
+    triangle.path = path.CGPath;
+    triangle.fillColor = fillColor.CGColor;
+    return  triangle;
 }
 
 + (CAShapeLayer *)squareWithSide:(CGFloat)side andFillColor:(UIColor *)fillColor {
