@@ -122,8 +122,16 @@
                 shapeLayer = [ShapeView heartInFrame:frameWithInset andFillColor:self.shapeColor];
             }
             break;
+        } case ShapeTypeFlower : {
+            if (self.isHole) {
+                shapeLayer = [ShapeView flowerInFrame:self.frame andFillColor:kBackgroundColor];
+            } else {
+                shapeLayer = [ShapeView flowerInFrame:frameWithInset andFillColor:self.shapeColor];
+            }
+            break;
         }
         default:
+            shapeLayer = [ShapeView circleInFrame:frameWithInset andFillColor:self.shapeColor];
             break;
     }
     

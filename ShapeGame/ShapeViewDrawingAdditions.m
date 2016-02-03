@@ -211,6 +211,60 @@
     return heart;
 }
 
++ (CAShapeLayer *)flowerInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    
+    CGRect frame = [self maximumSquareFrameThatFits:CGRectInset(originalFrame, 4.0, 4.0)];
+    
+    CGSize size = frame.size;
+    //CGFloat margin = 3.0;
+    
+    //Radius of each arc will be 1/4 of height or width, whichever is smaller
+    //rint is for rounding to nearest integer
+    CGFloat radius = rint(MIN(size.height, size.width) / 4);
+    
+    CGFloat xOffset = (originalFrame.size.width - frame.size.width + 2.0) / 2.0;
+    CGFloat yOffset = (originalFrame.size.height - frame.size.height + 2.0) / 2.0;
+    
+    //Create the Bezier path -- just mathematical coordinates for drawing
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    
+    //Top circle
+    
+    [path addArcWithCenter:CGPointMake(radius *2 + xOffset, radius + yOffset)
+                    radius:radius
+                startAngle:-M_PI
+                  endAngle:0
+                 clockwise:YES];
+    
+    //Right circle
+    [path addArcWithCenter:CGPointMake(radius *3 + xOffset, radius *2 + yOffset)
+                    radius:radius
+                startAngle:-M_PI_2
+                  endAngle:M_PI_2
+                 clockwise:YES];
+    
+    //Bottom circle
+    [path addArcWithCenter:CGPointMake(radius *2 + xOffset, radius *3 + yOffset)
+                    radius:radius
+                startAngle:0
+                  endAngle:M_PI
+                 clockwise:YES];
+    
+    //Left circle
+    [path addArcWithCenter:CGPointMake(radius + xOffset, radius * 2 + yOffset)
+                    radius:radius
+                startAngle:M_PI_2
+                  endAngle:-M_PI_2
+                 clockwise:YES];
+    
+    [path closePath];
+    
+    CAShapeLayer *flower = [CAShapeLayer layer];
+    flower.path = path.CGPath;
+    flower.fillColor = fillColor.CGColor;
+    return flower;
+}
+
 + (CGRect)maximumSquareFrameThatFits:(CGRect)frame {
     CGFloat a = MIN(frame.size.width, frame.size.height);
     return CGRectIntegral(CGRectMake(frame.size.width/2 - a/2, frame.size.height/2 - a/2, a, a));

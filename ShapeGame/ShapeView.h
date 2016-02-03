@@ -17,7 +17,7 @@ typedef enum : NSUInteger {
     ShapeTypeHexagon,
     ShapeTypeTrapese,
     ShapeTypeStar,
-    //ShapeTypeFlower,
+    ShapeTypeFlower,
     ShapeTypeHeart,
     ShapeTypeCross,
 } ShapeType;
