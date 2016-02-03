@@ -129,6 +129,24 @@
             }
             break;
         }
+        case ShapeTypeHexagon : {
+            if (self.isHole) {
+                self.backgroundColor = self.shapeColor;
+                
+                CAShapeLayer *hexagon = [ShapeView hexagonInFrame:self.frame andFillColor:kBackgroundColor];
+                hexagon.position = CGPointZero;
+                [self.layer addSublayer:hexagon];
+                
+            } else {
+                CGRect hexagonFrame = CGRectInset(self.frame, 3.0, 3.0);
+                
+                CAShapeLayer *hexagon = [ShapeView hexagonInFrame:hexagonFrame andFillColor:self.shapeColor];
+                hexagon.position = CGPointZero;
+                [self.layer addSublayer:hexagon];
+            }
+            
+            break;
+        }
         case ShapeTypeStar: {
             if (self.isHole) {
                 self.backgroundColor = self.shapeColor;
@@ -227,6 +245,37 @@
     return diamond;
 }
 
++ (CAShapeLayer *)hexagonInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    CGRect frame = [self maximumSquareFrameThatFits:originalFrame];
+    
+    CGFloat xRadius = CGRectGetWidth(frame) / 2;
+    CGFloat yRadius = CGRectGetHeight(frame) / 2;
+    
+    CGFloat centerX = CGRectGetMidX(frame);
+    CGFloat centerY = CGRectGetMidY(frame);
+    
+    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
+    
+    [bezierPath moveToPoint:CGPointMake(centerX + xRadius, centerY + 0)];
+    
+    int numberOfSides = 6;
+    
+    for (NSUInteger i = 0; i < numberOfSides; i++)
+    {
+        CGFloat theta = 2 * M_PI / numberOfSides * i;
+        CGFloat xCoordinate = centerX + xRadius * cosf(theta);
+        CGFloat yCoordinate = centerY + yRadius * sinf(theta);
+        [bezierPath addLineToPoint:CGPointMake(xCoordinate, yCoordinate)];
+    }
+    
+    [bezierPath closePath];
+    
+    CAShapeLayer *hexagon = [CAShapeLayer layer];
+    hexagon.path = bezierPath.CGPath;
+    hexagon.fillColor = fillColor.CGColor;
+    return hexagon;
+}
+
 + (CAShapeLayer *)starInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
     CGRect frame = [self maximumSquareFrameThatFits:originalFrame];
     
@@ -276,6 +325,35 @@
 {
     CGFloat a = MIN(frame.size.width, frame.size.height);
     return CGRectMake(frame.size.width/2 - a/2, frame.size.height/2 - a/2, a, a);
+}
+
++ (UIBezierPath *)bezierPathWithPolygonInRect:(CGRect)rect numberOfSides:(NSUInteger)numberOfSides {
+    if (numberOfSides < 3)
+    {
+        [NSException raise:NSInvalidArgumentException format:@"ZEPolygon requires numberOfSides to be 3 or greater"];
+    }
+    
+    CGFloat xRadius = CGRectGetWidth(rect) / 2;
+    CGFloat yRadius = CGRectGetHeight(rect) / 2;
+    
+    CGFloat centerX = CGRectGetMidX(rect);
+    CGFloat centerY = CGRectGetMidY(rect);
+    
+    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
+    
+    [bezierPath moveToPoint:CGPointMake(centerX + xRadius, centerY + 0)];
+    
+    for (NSUInteger i = 0; i < numberOfSides; i++)
+    {
+        CGFloat theta = 2 * M_PI / numberOfSides * i;
+        CGFloat xCoordinate = centerX + xRadius * cosf(theta);
+        CGFloat yCoordinate = centerY + yRadius * sinf(theta);
+        [bezierPath addLineToPoint:CGPointMake(xCoordinate, yCoordinate)];
+    }
+    
+    [bezierPath closePath];
+    
+    return bezierPath;
 }
 
 @end

@@ -57,7 +57,7 @@
     [panGesture setTranslation:CGPointMake(0, 0) inView:self];
     
     if ([DraggableShapeView distanceFromHole:self.holeCenter toShape:self.center] < 30.0) {
-        if (self.shapeType == ShapeTypeStar || self.shapeType == ShapeTypeHeart) {
+        if (self.shapeType == ShapeTypeStar || self.shapeType == ShapeTypeHeart || self.shapeType == ShapeTypeHexagon) {
             self.center = CGPointMake(self.holeCenter.x + 3.0, self.holeCenter.y + 3.0);
         } else {
             self.center = self.holeCenter;
