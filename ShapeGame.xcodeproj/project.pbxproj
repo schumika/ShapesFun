@@ -18,6 +18,7 @@
 		2760BC641C511DFE00B1DBDE /* ShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2760BC631C511DFE00B1DBDE /* ShapeView.m */; };
 		278AB50A1C61F5A400A8421D /* match.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 278AB5081C61F5A400A8421D /* match.mp3 */; };
 		278AB50B1C61F5A400A8421D /* well_done.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 278AB5091C61F5A400A8421D /* well_done.mp3 */; };
+		27CA2B651C621432006DD40C /* ShapeViewDrawingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA2B641C621432006DD40C /* ShapeViewDrawingAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		2760BC631C511DFE00B1DBDE /* ShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShapeView.m; sourceTree = "<group>"; };
 		278AB5081C61F5A400A8421D /* match.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = match.mp3; sourceTree = "<group>"; };
 		278AB5091C61F5A400A8421D /* well_done.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = well_done.mp3; sourceTree = "<group>"; };
+		27CA2B631C621432006DD40C /* ShapeViewDrawingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeViewDrawingAdditions.h; sourceTree = "<group>"; };
+		27CA2B641C621432006DD40C /* ShapeViewDrawingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShapeViewDrawingAdditions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,8 @@
 				2760BC521C51134A00B1DBDE /* ViewController.m */,
 				2760BC621C511DFE00B1DBDE /* ShapeView.h */,
 				2760BC631C511DFE00B1DBDE /* ShapeView.m */,
+				27CA2B631C621432006DD40C /* ShapeViewDrawingAdditions.h */,
+				27CA2B641C621432006DD40C /* ShapeViewDrawingAdditions.m */,
 				273FCDB21C5221EA00CE2E60 /* DraggableShapeView.h */,
 				273FCDB31C5221EA00CE2E60 /* DraggableShapeView.m */,
 				2760BC541C51134A00B1DBDE /* Main.storyboard */,
@@ -174,6 +179,7 @@
 				2760BC531C51134A00B1DBDE /* ViewController.m in Sources */,
 				273FCDB41C5221EA00CE2E60 /* DraggableShapeView.m in Sources */,
 				2760BC501C51134A00B1DBDE /* AppDelegate.m in Sources */,
+				27CA2B651C621432006DD40C /* ShapeViewDrawingAdditions.m in Sources */,
 				2760BC641C511DFE00B1DBDE /* ShapeView.m in Sources */,
 				2760BC4D1C51134A00B1DBDE /* main.m in Sources */,
 			);
