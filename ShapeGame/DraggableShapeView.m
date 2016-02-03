@@ -28,11 +28,6 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
-    self.panGestureRecognizer.minimumNumberOfTouches = 1;
-}
-
 - (void)configureWithShapeType:(ShapeType)shapeType andColor:(UIColor *)color isHole:(BOOL)isHole {
     [self addGestureRecognizer:self.panGestureRecognizer];
     self.originalCenter = self.center;
@@ -57,11 +52,8 @@
     [panGesture setTranslation:CGPointMake(0, 0) inView:self];
     
     if ([DraggableShapeView distanceFromHole:self.holeCenter toShape:self.center] < 30.0) {
-        if (self.shapeType == ShapeTypeStar || self.shapeType == ShapeTypeHeart || self.shapeType == ShapeTypeHexagon || self.shapeType == ShapeTypeCross) {
-            self.center = CGPointMake(self.holeCenter.x + 3.0, self.holeCenter.y + 3.0);
-        } else {
-            self.center = self.holeCenter;
-        }
+        
+        self.center = CGPointMake(self.holeCenter.x + 3.0, self.holeCenter.y + 3.0);
         
         __weak typeof(DraggableShapeView *) weakSelf = self;
         if (self.isMatched == NO && [self.delegate respondsToSelector:@selector(shapeViewGotMatched:)]) {

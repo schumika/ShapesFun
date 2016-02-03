@@ -16,6 +16,7 @@
 
 @interface ViewController () <DraggableShapeViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wellDoneLabel;
 
 @property (nonatomic, strong) NSArray *holes;
@@ -39,34 +40,44 @@
     NSMutableArray *shapesArray = [NSMutableArray array];
     self.pairs = [NSMutableArray array];
     
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    CGFloat shapeWidth = ceil(screenWidth / 4.0);
+    CGFloat shapeHeight = ceil(screenHeight / 3.0);
+    CGSize shapeSize = CGSizeMake(shapeWidth, shapeHeight);
+    
     for (int shapeIndex = 0; shapeIndex < kNumberOfShapes; shapeIndex++) {
         ShapeView *hole = [ShapeView shapeView];
         [self.view addSubview:hole];
         [holesArray addObject:hole];
+        [self setSize:shapeSize forShape:hole];
         
         DraggableShapeView *shape = [DraggableShapeView shapeView];
         shape.delegate = self;
         [self.view addSubview:shape];
         [shapesArray addObject:shape];
+        [self setSize:shapeSize forShape:shape];
     }
     
     self.holes = [NSArray arrayWithArray:holesArray];
     self.shapes = [NSArray arrayWithArray:shapesArray];
     
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat holeWidth = ((UIView *)self.shapes[0]).bounds.size.width;
-    CGFloat space = ceil((screenWidth - [self.shapes count]*holeWidth) / 4.0);
+    CGFloat horizintalSpace = ceil((screenWidth - kNumberOfShapes * shapeSize.width) / 4.0);
+    CGFloat xOffset = horizintalSpace;
     
-    CGFloat xOffset = space;
+    CGFloat verticalSpace = ceil((screenHeight - self.titleLabel.frame.size.height - 2 * shapeSize.height) / 3.0);
+    CGFloat holeYOffset = CGRectGetMaxY(self.titleLabel.frame) + verticalSpace;
+    CGFloat shapeYOffset = CGRectGetMaxY(self.titleLabel.frame) + 2*verticalSpace + shapeSize.height;
     
     for (int shapeIndex = 0; shapeIndex < [self.shapes count]; shapeIndex++) {
         ShapeView *hole = self.shapes[shapeIndex];
-        [self moveShape:hole toOrigin:CGPointMake(xOffset, 190.0)];
+        [self moveShape:hole toOrigin:CGPointMake(xOffset, shapeYOffset)];
         
         DraggableShapeView *shape = self.holes[shapeIndex];
-        [self moveShape:shape toOrigin:CGPointMake(xOffset, 70.0)];
+        [self moveShape:shape toOrigin:CGPointMake(xOffset, holeYOffset)];
         
-        xOffset += space + holeWidth;
+        xOffset += horizintalSpace + shapeSize.width;
     }
     
     NSString *matchSoundPath = [[NSBundle mainBundle] pathForResource:@"match" ofType:@"mp3"];
@@ -74,6 +85,12 @@
     
     NSString *wellDoneSoundPath = [[NSBundle mainBundle] pathForResource:@"well_done" ofType:@"mp3"];
     self.wellDoneSoundURL = [NSURL fileURLWithPath:wellDoneSoundPath];
+}
+
+- (void)setSize:(CGSize)shapeSize forShape:(ShapeView *)shapeView {
+    CGRect fr = shapeView.frame;
+    fr.size = shapeSize;
+    shapeView.frame = fr;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -84,7 +101,7 @@
 
 - (void)generateShapes {
     NSArray *threeColors = [self getArrayWithRandomElementsFromArray:@[[UIColor lightGrayColor], [UIColor redColor], /*[UIColor greenColor], */[UIColor blueColor], [UIColor yellowColor], [UIColor magentaColor], [UIColor orangeColor], [UIColor purpleColor]]];
-    NSArray *threeShapes = [self getArrayWithRandomElementsFromArray:@[@(ShapeTypeCircle), @(ShapeTypeTriangle), @(ShapeTypeSquare), @(ShapeTypeRectangle), @(ShapeTypeDiamond), @(ShapeTypeHexagon), @(ShapeTypeStar), @(ShapeTypeHeart), @(ShapeTypeCross)]];
+    NSArray *threeShapes = [self getArrayWithRandomElementsFromArray:@[@(ShapeTypeTriangle), @(ShapeTypeSquare), @(ShapeTypeRectangle), @(ShapeTypeDiamond), @(ShapeTypeHexagon), @(ShapeTypeStar), @(ShapeTypeHeart), @(ShapeTypeCross)]];
     
     NSArray *holePositions = [self getArrayWithRandomPositions];
     NSArray *shapePositions = [self getArrayWithRandomPositions];
@@ -136,6 +153,7 @@
     }
     
     if (completed) {
+        [self.audioPlayer stop];
         self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.wellDoneSoundURL error:NULL];
         [self.audioPlayer play];
         

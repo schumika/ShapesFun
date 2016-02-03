@@ -8,16 +8,9 @@
 
 #import "ShapeView.h"
 
-#define kDefaultFrame CGRectMake(0.0, 0.0, 137.0, 108.0)
+//#define kDefaultFrame CGRectMake(0.0, 0.0, 137.0, 108.0)
 
 #define kBackgroundColor [UIColor colorWithRed:102.0/255.0 green:1.0 blue:204./255.0 alpha:1.0]
-
-#define kCircleRadius           50.0
-#define kTriangleSide           90.0
-#define kSquareSide             90.0
-#define kRectangleShortSide     70.0
-#define kRectangleLongSide      120.0
-#define kDiamondSide            70.0
 
 @interface ShapeView ()
 
@@ -27,7 +20,7 @@
 @implementation ShapeView
 
 - (instancetype)initWithDefaultFrame {
-    self = [super initWithFrame:kDefaultFrame];
+    self = [super initWithFrame:CGRectZero];
     
     if (!self) return nil;
     
@@ -52,13 +45,13 @@
             if (self.isHole) {
                 self.backgroundColor = self.shapeColor;
                 
-                CAShapeLayer *circle = [ShapeView circleWithRadius:(kCircleRadius + 2.0) andFillColor:kBackgroundColor];
-                circle.position = CGPointMake((self.frame.size.width - (kCircleRadius + 2.0) * 2) / 2.0, (self.frame.size.height - (kCircleRadius + 2.0) * 2) / 2.0);
+                CAShapeLayer *circle = [ShapeView circleInFrame:self.frame andFillColor:kBackgroundColor];
+                circle.position =CGPointZero;
                 
                 [self.layer addSublayer:circle];
             } else {
-                CAShapeLayer *circle = [ShapeView circleWithRadius:kCircleRadius andFillColor:self.shapeColor];
-                circle.position = CGPointMake((self.frame.size.width - kCircleRadius * 2) / 2.0, (self.frame.size.height - kCircleRadius * 2) / 2.0);
+                CAShapeLayer *circle = [ShapeView circleInFrame:CGRectInset(self.frame, 3.0, 3.0) andFillColor:self.shapeColor];
+                circle.position = CGPointZero;
                 [self.layer addSublayer:circle];
             }
             
@@ -68,13 +61,13 @@
             if (self.isHole) {
                 self.backgroundColor = self.shapeColor;
                 
-                CAShapeLayer *square = [ShapeView squareWithSide:(kSquareSide + 3.0) andFillColor:kBackgroundColor];
-                square.position = CGPointMake((self.frame.size.width - (kSquareSide + 3.0)) / 2.0, (self.frame.size.height - (kSquareSide + 3.0)) / 2.0);
+                CAShapeLayer *square = [ShapeView rectangleInFrame:self.frame andFillColor:kBackgroundColor];
+                square.position = CGPointZero;
                 
                 [self.layer addSublayer:square];
             } else {
-                CAShapeLayer *square = [ShapeView squareWithSide:kSquareSide andFillColor:self.shapeColor];
-                square.position = CGPointMake((self.frame.size.width - kSquareSide) / 2.0, (self.frame.size.height - kSquareSide) / 2.0);
+                CAShapeLayer *square = [ShapeView rectangleInFrame:CGRectInset(self.frame, 3.0, 3.0) andFillColor:self.shapeColor];
+                square.position = CGPointZero;
                 [self.layer addSublayer:square];
             }
             break;
@@ -83,14 +76,13 @@
             if (self.isHole) {
                 self.backgroundColor = self.shapeColor;
                 
-                CAShapeLayer *triangle = [ShapeView triangleWithSide:(kTriangleSide + 3.0) andFillColor:kBackgroundColor];
-                CGFloat triangleHeight = (kTriangleSide + 1.0) * sqrt(3) / 2.0;
-                triangle.position = CGPointMake((self.frame.size.width - (kTriangleSide + 3.0)) / 2.0, (self.frame.size.height - (triangleHeight + 3.0)) / 2.0);
+                CAShapeLayer *triangle = [ShapeView triangleInFrame:self.frame andFillColor:kBackgroundColor];
+                triangle.position = CGPointZero;
+                
                 [self.layer addSublayer:triangle];
             } else {
-                CAShapeLayer *triangle = [ShapeView triangleWithSide:kTriangleSide andFillColor:self.shapeColor];
-                CGFloat triangleHeight = kTriangleSide * sqrt(3) / 2.0;
-                triangle.position = CGPointMake((self.frame.size.width - kTriangleSide) / 2.0, (self.frame.size.height - triangleHeight) / 2.0);
+                CAShapeLayer *triangle = [ShapeView triangleInFrame:CGRectInset(self.frame, 3.0, 3.0) andFillColor:self.shapeColor];
+                triangle.position = CGPointZero;
                 [self.layer addSublayer:triangle];
             }
             
@@ -100,13 +92,13 @@
             if (self.isHole) {
                 self.backgroundColor = self.shapeColor;
                 
-                CAShapeLayer *rectangle = [ShapeView rectangleWithShortSide:(kRectangleShortSide + 3.0) longSide:(kRectangleLongSide + 3.0) andFillColor:kBackgroundColor];
-                rectangle.position = CGPointMake((self.frame.size.width - (kRectangleLongSide + 3.0)) / 2.0, (self.frame.size.height - (kRectangleShortSide + 3.0)) / 2.0);
+                CAShapeLayer *rectangle = [ShapeView rectangleInFrame:self.frame andFillColor:kBackgroundColor];
+                rectangle.position = CGPointZero;
                 
                 [self.layer addSublayer:rectangle];
             } else {
-                CAShapeLayer *rectangle = [ShapeView rectangleWithShortSide:kRectangleShortSide longSide:kRectangleLongSide andFillColor:self.shapeColor];
-                rectangle.position = CGPointMake((self.frame.size.width - kRectangleLongSide) / 2.0, (self.frame.size.height - kRectangleShortSide) / 2.0);
+                CAShapeLayer *rectangle = [ShapeView rectangleInFrame:CGRectInset(self.frame, 3.0, 3.0) andFillColor:self.shapeColor];
+                rectangle.position = CGPointZero;
                 [self.layer addSublayer:rectangle];
             }
             
@@ -116,16 +108,15 @@
             if (self.isHole) {
                 self.backgroundColor = self.shapeColor;
                 
-                CAShapeLayer *diamond = [ShapeView diamondWithSide:(kDiamondSide + 3.0) andFillColor:kBackgroundColor];
-                CGFloat diagonalSize = sqrt((kDiamondSide + 3.0) * (kDiamondSide + 3.0) + (kDiamondSide + 3.0) * (kDiamondSide + 3.0));
-                diamond.position = CGPointMake((self.frame.size.width - diagonalSize) / 2.0, (self.frame.size.height - diagonalSize) / 2.0);
+                CAShapeLayer *diamond = [ShapeView diamondInFrame:self.frame andFillColor:kBackgroundColor];
+                diamond.position = CGPointZero;
                 
                 [self.layer addSublayer:diamond];
+                
             } else {
-                CAShapeLayer *diamond = [ShapeView diamondWithSide:kDiamondSide andFillColor:self.shapeColor];
-                CGFloat diagonalSize = sqrt(kDiamondSide * kDiamondSide + kDiamondSide * kDiamondSide);
-                diamond.position = CGPointMake((self.frame.size.width - diagonalSize) / 2.0, (self.frame.size.height - diagonalSize) / 2.0);
-                [self.layer addSublayer:diamond];
+                CAShapeLayer *square = [ShapeView diamondInFrame:CGRectInset(self.frame, 3.0, 3.0) andFillColor:self.shapeColor];
+                square.position = CGPointZero;
+                [self.layer addSublayer:square];
             }
             break;
         }
@@ -203,24 +194,37 @@
 
 #pragma mark - Private methods
 
-+ (CAShapeLayer *)circleWithRadius:(CGFloat)radius andFillColor:(UIColor *)fillColor {
++ (CAShapeLayer *)circleInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    CGFloat shapeInset = 10.0;
+    CGRect frame = [self maximumSquareFrameThatFits:CGRectInset(originalFrame,shapeInset, shapeInset)];
+    CGFloat radius = frame.size.width / 2.0;
+    CGFloat xOffset = (originalFrame.size.width - frame.size.width) / 2.0;
+    CGFloat yOffset = (originalFrame.size.height - frame.size.height) / 2.0;
+    
     CAShapeLayer *circle = [CAShapeLayer layer];
-    circle.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 2.0*radius, 2.0*radius)
+    circle.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(xOffset, yOffset, 2.0*radius, 2.0*radius)
                                              cornerRadius:radius].CGPath;
     circle.fillColor = fillColor.CGColor;
-    circle.borderColor = kBackgroundColor.CGColor;
-    circle.borderWidth = 2.0;
     
     return circle;
 }
 
-+ (CAShapeLayer *)triangleWithSide:(CGFloat)side andFillColor:(UIColor *)fillColor {
++ (CAShapeLayer *)triangleInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    CGFloat shapeInset = 10.0;
+    CGRect frame = [self maximumSquareFrameThatFits:CGRectInset(originalFrame,shapeInset, shapeInset)];
+    
+    CGFloat xOffset = (originalFrame.size.width - frame.size.width) / 2.0;
+    CGFloat yOffset = (originalFrame.size.height - frame.size.height) / 2.0;
+    
+    CGFloat side = frame.size.width;
+    CGFloat triangleHeight = side * sqrt(3) / 2;
+    
     CAShapeLayer *triangle = [CAShapeLayer layer];
     UIBezierPath *path = [UIBezierPath bezierPath];
-    CGFloat triangleHeight = side * sqrt(3) / 2;
-    [path moveToPoint:CGPointMake(0.0, triangleHeight)];
-    [path addLineToPoint:CGPointMake(side, triangleHeight)];
-    [path addLineToPoint:CGPointMake(side / 2, 0.0)];
+    
+    [path moveToPoint:CGPointMake(xOffset, triangleHeight + yOffset)];
+    [path addLineToPoint:CGPointMake(xOffset + side, triangleHeight + yOffset)];
+    [path addLineToPoint:CGPointMake(xOffset + side / 2, yOffset)];
     [path closePath];
     
     triangle.path = path.CGPath;
@@ -228,32 +232,53 @@
     return  triangle;
 }
 
-+ (CAShapeLayer *)squareWithSide:(CGFloat)side andFillColor:(UIColor *)fillColor {
++ (CAShapeLayer *)squareInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    CGFloat shapeInset = ceil(originalFrame.size.height / 6.0);
+    CGRect frame = [self maximumSquareFrameThatFits:CGRectInset(originalFrame,shapeInset, shapeInset)];
+    
+    CGFloat xOffset = (originalFrame.size.width - frame.size.width) / 2.0;
+    CGFloat yOffset = (originalFrame.size.height - frame.size.height) / 2.0;
+    
+    CGFloat side = frame.size.width;
+    
     CAShapeLayer *square = [CAShapeLayer layer];
-    square.path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, side, side)].CGPath;
-    
+    square.path = [UIBezierPath bezierPathWithRect:CGRectMake(xOffset, yOffset, side, side)].CGPath;
     square.fillColor = fillColor.CGColor;
-    
-    return square;
+    return  square;
 }
 
-+ (CAShapeLayer *)rectangleWithShortSide:(CGFloat)shortSide longSide:(CGFloat)longSide andFillColor:(UIColor *)fillColor {
-    CAShapeLayer *rectangle = [CAShapeLayer layer];
-    rectangle.path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, longSide, shortSide)].CGPath;
++ (CAShapeLayer *)rectangleInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    CGFloat shapeInset = ceil(originalFrame.size.height / 10.0);
+    CGRect frame = [self maximumSquareFrameThatFits:CGRectInset(originalFrame,shapeInset, shapeInset)];
     
-    rectangle.fillColor = fillColor.CGColor;
+    CGFloat width = frame.size.width;
+    CGFloat height = width * 0.7;
     
-    return rectangle;
+    CGFloat xOffset = (originalFrame.size.width - frame.size.width) / 2.0;
+    CGFloat yOffset = (originalFrame.size.height - frame.size.height + (width - height)) / 2.0;
+    
+    CAShapeLayer *square = [CAShapeLayer layer];
+    square.path = [UIBezierPath bezierPathWithRect:CGRectMake(xOffset, yOffset, width, height)].CGPath;
+    square.fillColor = fillColor.CGColor;
+    return  square;
 }
 
-+ (CAShapeLayer *)diamondWithSide:(CGFloat)side andFillColor:(UIColor *)fillColor {
++ (CAShapeLayer *)diamondInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    CGFloat shapeInset = ceil(originalFrame.size.height / 10.0);
+    CGRect frame = [self maximumSquareFrameThatFits:CGRectInset(originalFrame,shapeInset, shapeInset)];
+    
+    CGFloat xOffset = (originalFrame.size.width - frame.size.width) / 2.0;
+    CGFloat yOffset = (originalFrame.size.height - frame.size.height) / 2.0;
+    
+    CGFloat side = (frame.size.width / 2) * sqrt(2);
+    
     UIBezierPath *path = [UIBezierPath bezierPath];
     CGFloat diagonalSize = sqrt(side * side + side * side);
-    [path moveToPoint:CGPointMake(diagonalSize / 2.0, 0.0)];
+    [path moveToPoint:CGPointMake(xOffset + diagonalSize / 2.0, yOffset)];
     
-    [path addLineToPoint:CGPointMake(diagonalSize, diagonalSize / 2.0)];
-    [path addLineToPoint:CGPointMake(diagonalSize / 2.0, diagonalSize)];
-    [path addLineToPoint:CGPointMake(0.0, diagonalSize / 2.0)];
+    [path addLineToPoint:CGPointMake(xOffset + diagonalSize, diagonalSize / 2.0 + yOffset)];
+    [path addLineToPoint:CGPointMake(xOffset + diagonalSize / 2.0, diagonalSize + yOffset)];
+    [path addLineToPoint:CGPointMake(xOffset, diagonalSize / 2.0 + yOffset)];
     [path closePath];
     
     CAShapeLayer *diamond = [CAShapeLayer layer];
@@ -373,7 +398,7 @@
 + (CGRect)maximumSquareFrameThatFits:(CGRect)frame;
 {
     CGFloat a = MIN(frame.size.width, frame.size.height);
-    return CGRectMake(frame.size.width/2 - a/2, frame.size.height/2 - a/2, a, a);
+    return CGRectIntegral(CGRectMake(frame.size.width/2 - a/2, frame.size.height/2 - a/2, a, a));
 }
 
 + (UIBezierPath *)bezierPathWithPolygonInRect:(CGRect)rect numberOfSides:(NSUInteger)numberOfSides {
