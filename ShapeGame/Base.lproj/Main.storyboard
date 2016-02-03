@@ -23,16 +23,29 @@
                                 <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Well done!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmP-k3-7TL">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="60"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="dmc-Jl-th6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="81T-RI-Suy"/>
+                            <constraint firstItem="pmP-k3-7TL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="EOK-gc-vzz"/>
+                            <constraint firstItem="pmP-k3-7TL" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="T00-Qa-wWa"/>
                             <constraint firstItem="dmc-Jl-th6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ale-pV-r0J"/>
                             <constraint firstAttribute="trailing" secondItem="dmc-Jl-th6" secondAttribute="trailing" constant="20" id="bYP-iV-Oro"/>
+                            <constraint firstItem="pmP-k3-7TL" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="hV9-cd-2ed"/>
+                            <constraint firstItem="pmP-k3-7TL" firstAttribute="centerX" secondItem="dmc-Jl-th6" secondAttribute="centerX" id="tbx-yj-cdN"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="wellDoneLabel" destination="pmP-k3-7TL" id="gGp-sX-3vx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

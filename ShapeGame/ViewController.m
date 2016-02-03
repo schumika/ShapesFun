@@ -15,6 +15,8 @@
 
 @interface ViewController () <DraggableShapeViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *wellDoneLabel;
+
 @property (nonatomic, strong) NSArray *holes;
 @property (nonatomic, strong) NSArray *shapes;
 
@@ -83,6 +85,8 @@
         
         [self.pairs addObject:@{@"hole":holePositions[pos], @"shape":shapePositions[pos]}];
     }
+    
+    self.wellDoneLabel.hidden = YES;
 }
 
 
@@ -117,17 +121,23 @@
     }
     
     if (completed) {
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:@"Well done!" preferredStyle:UIAlertControllerStyleAlert];
-        [ac addAction:[UIAlertAction actionWithTitle:@"Thanks" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.wellDoneLabel.hidden = NO;
+        [self.view bringSubviewToFront:self.wellDoneLabel];
+        
+        [UIView animateWithDuration:1.5 animations:^{
+            self.wellDoneLabel.transform = CGAffineTransformMakeScale(2.0, 2.0);
+            self.wellDoneLabel.alpha = 0.1;
+        } completion:^(BOOL finished) {
+            self.wellDoneLabel.transform = CGAffineTransformIdentity;
+            self.wellDoneLabel.alpha = 1.0;
+            self.wellDoneLabel.hidden = YES;
             
             for (DraggableShapeView *shape in self.shapes) {
                 [shape resetToOriginalPosition];
             }
             
             [self generateShapes];
-            
-        }]];
-        [self presentViewController:ac animated:YES completion:NULL];
+        }];
     }
 }
 
