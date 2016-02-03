@@ -10,6 +10,7 @@
 #import "ShapeView.h"
 #import "DraggableShapeView.h"
 #import <GameplayKit/GameplayKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 #define kNumberOfShapes 3
 
@@ -21,6 +22,10 @@
 @property (nonatomic, strong) NSArray *shapes;
 
 @property (nonatomic, strong) NSMutableArray *pairs;
+
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) NSURL *matchSoundURL;
+@property (nonatomic, strong) NSURL *wellDoneSoundURL;
 
 @end
 
@@ -63,6 +68,12 @@
         
         xOffset += space + holeWidth;
     }
+    
+    NSString *matchSoundPath = [[NSBundle mainBundle] pathForResource:@"match" ofType:@"mp3"];
+    self.matchSoundURL = [NSURL fileURLWithPath:matchSoundPath];
+    
+    NSString *wellDoneSoundPath = [[NSBundle mainBundle] pathForResource:@"well_done" ofType:@"mp3"];
+    self.wellDoneSoundURL = [NSURL fileURLWithPath:wellDoneSoundPath];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,6 +104,10 @@
 #pragma mark - DraggableShapeViewDelegate methods
 
 - (void)shapeViewGotMatched:(DraggableShapeView *)shapeView {
+    // play match sound
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.matchSoundURL error:NULL];
+    [self.audioPlayer play];
+    
     __block ShapeView *holeView = nil;
     
     [UIView animateWithDuration:0.2 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:5 options:UIViewAnimationOptionLayoutSubviews animations:^{
@@ -121,6 +136,9 @@
     }
     
     if (completed) {
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.wellDoneSoundURL error:NULL];
+        [self.audioPlayer play];
+        
         self.wellDoneLabel.hidden = NO;
         [self.view bringSubviewToFront:self.wellDoneLabel];
         
