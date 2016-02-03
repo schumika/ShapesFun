@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShapeGame/ShapeView.m"
-            timestampString = "476176915.465939"
+            timestampString = "476179777.359201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "-configureWithShapeType:andColor:isHole:"
             landmarkType = "5">
          </BreakpointContent>

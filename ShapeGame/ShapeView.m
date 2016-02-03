@@ -147,6 +147,23 @@
             
             break;
         }
+        case ShapeTypeCross: {
+            if (self.isHole) {
+                self.backgroundColor = self.shapeColor;
+                
+                CAShapeLayer *cross = [ShapeView crossInFrame:self.frame andFillColor:kBackgroundColor];
+                cross.position = CGPointZero;
+                [self.layer addSublayer:cross];
+            } else {
+                CGRect crossFrame = CGRectInset(self.frame, 3.0, 3.0);
+                
+                CAShapeLayer *cross = [ShapeView crossInFrame:crossFrame andFillColor:self.shapeColor];
+                cross.position = CGPointZero;
+                [self.layer addSublayer:cross];
+
+            }
+            break;
+        }
         case ShapeTypeStar: {
             if (self.isHole) {
                 self.backgroundColor = self.shapeColor;
@@ -245,6 +262,37 @@
     return diamond;
 }
 
++ (CAShapeLayer *)crossInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    CGRect frame = [self maximumSquareFrameThatFits:CGRectInset(originalFrame, 5.0, 5.0)];
+    
+    CGFloat side = frame.size.width;
+    CGFloat thirdOfSide = side / 3.0;
+    CGFloat twoThirdsOfSide = 2 * thirdOfSide;
+    CGFloat minX = CGRectGetMinX(frame) + 5.0;
+    CGFloat minY = CGRectGetMinY(frame) + 5.0;
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    
+    [path moveToPoint:CGPointMake(minX + thirdOfSide, minY)];
+    [path addLineToPoint:CGPointMake(minX + twoThirdsOfSide, minY)];
+    [path addLineToPoint:CGPointMake(minX + twoThirdsOfSide, thirdOfSide + minY)];
+    [path addLineToPoint:CGPointMake(minX + side, thirdOfSide + minY)];
+    [path addLineToPoint:CGPointMake(minX + side, twoThirdsOfSide + minY)];
+    [path addLineToPoint:CGPointMake(minX + twoThirdsOfSide, twoThirdsOfSide + minY)];
+    [path addLineToPoint:CGPointMake(minX + twoThirdsOfSide, side + minY)];
+    [path addLineToPoint:CGPointMake(minX + thirdOfSide, side + minY)];
+    [path addLineToPoint:CGPointMake(minX + thirdOfSide, twoThirdsOfSide + minY)];
+    [path addLineToPoint:CGPointMake(minX, twoThirdsOfSide + minY)];
+    [path addLineToPoint:CGPointMake(minX, thirdOfSide + minY)];
+    [path addLineToPoint:CGPointMake(minX + thirdOfSide, thirdOfSide + minY)];
+    [path closePath];
+    
+    CAShapeLayer *cross = [CAShapeLayer layer];
+    cross.path = path.CGPath;
+    cross.fillColor = fillColor.CGColor;
+    return cross;
+}
+
 + (CAShapeLayer *)hexagonInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
     CGRect frame = [self maximumSquareFrameThatFits:originalFrame];
     
@@ -280,6 +328,7 @@
     CGRect frame = [self maximumSquareFrameThatFits:originalFrame];
     
     UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+    
     [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.05000 * CGRectGetHeight(frame))];
     [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.67634 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.30729 * CGRectGetHeight(frame))];
     [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.97553 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.39549 * CGRectGetHeight(frame))];
