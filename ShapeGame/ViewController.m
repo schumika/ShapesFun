@@ -72,11 +72,11 @@
 }
 
 - (void)generateShapes {
-    NSArray *threeColors = [self getArrayWithThreeRandomElementsFromArray:@[[UIColor lightGrayColor], [UIColor redColor], /*[UIColor greenColor], */[UIColor blueColor], [UIColor yellowColor], [UIColor magentaColor], [UIColor orangeColor], [UIColor purpleColor]]];
-    NSArray *threeShapes = [self getArrayWithThreeRandomElementsFromArray:@[@(ShapeTypeCircle), @(ShapeTypeTriangle), @(ShapeTypeSquare), @(ShapeTypeRectangle), @(ShapeTypeDiamond), @(ShapeTypeHexagon), @(ShapeTypeStar), @(ShapeTypeHeart), @(ShapeTypeCross)]];
+    NSArray *threeColors = [self getArrayWithRandomElementsFromArray:@[[UIColor lightGrayColor], [UIColor redColor], /*[UIColor greenColor], */[UIColor blueColor], [UIColor yellowColor], [UIColor magentaColor], [UIColor orangeColor], [UIColor purpleColor]]];
+    NSArray *threeShapes = [self getArrayWithRandomElementsFromArray:@[@(ShapeTypeCircle), @(ShapeTypeTriangle), @(ShapeTypeSquare), @(ShapeTypeRectangle), @(ShapeTypeDiamond), @(ShapeTypeHexagon), @(ShapeTypeStar), @(ShapeTypeHeart), @(ShapeTypeCross)]];
     
-    NSArray *holePositions = [self getArrayWithThreeRandomElementsFromArray:@[@(0), @(1), @(2)]];
-    NSArray *shapePositions = [self getArrayWithThreeRandomElementsFromArray:@[@(0), @(1), @(2)]];
+    NSArray *holePositions = [self getArrayWithRandomPositions];
+    NSArray *shapePositions = [self getArrayWithRandomPositions];
     [self.pairs removeAllObjects];
     
     for (int pos = 0; pos < [self.shapes count]; pos++) {
@@ -175,10 +175,24 @@
 
 #pragma mark - Shuffle methods
 
-- (NSArray *)getArrayWithThreeRandomElementsFromArray:(NSArray *)array {
+- (NSArray *)getArrayWithRandomElementsFromArray:(NSArray *)array {
     NSArray *arr = [[GKRandomSource sharedRandom] arrayByShufflingObjectsInArray:array];
     
-    return @[arr[0], arr[1], arr[2]];
+    NSMutableArray *mutArr = [NSMutableArray array];
+    for (int ind = 0; ind < kNumberOfShapes; ind++) {
+        [mutArr addObject:arr[ind]];
+    }
+    
+    return mutArr;
+}
+
+- (NSArray *)getArrayWithRandomPositions {
+    NSMutableArray *arr = [NSMutableArray array];
+    for (int ind = 0; ind < kNumberOfShapes; ind++) {
+        [arr addObject:@(ind)];
+    }
+    
+    return [self getArrayWithRandomElementsFromArray:arr];
 }
 
 @end
