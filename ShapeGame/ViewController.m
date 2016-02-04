@@ -66,8 +66,8 @@
     CGFloat horizintalSpace = ceil((screenWidth - kNumberOfShapes * shapeSize.width) / 4.0);
     CGFloat xOffset = horizintalSpace;
     
-    CGFloat verticalSpace = ceil((screenHeight - self.titleLabel.frame.size.height - 2 * shapeSize.height) / 3.0);
-    CGFloat holeYOffset = CGRectGetMaxY(self.titleLabel.frame) + verticalSpace;
+    CGFloat verticalSpace = ceil((screenHeight - CGRectGetMaxY(self.titleLabel.frame) - 2 * shapeSize.height) / 3.0);
+    CGFloat holeYOffset = CGRectGetMaxY(self.titleLabel.frame) + ceil(verticalSpace / 2.0);
     CGFloat shapeYOffset = CGRectGetMaxY(self.titleLabel.frame) + 2*verticalSpace + shapeSize.height;
     
     for (int shapeIndex = 0; shapeIndex < [self.shapes count]; shapeIndex++) {
@@ -100,7 +100,7 @@
 }
 
 - (void)generateShapes {
-    NSArray *threeColors = [self getArrayWithRandomElementsFromArray:@[[UIColor lightGrayColor], [UIColor redColor], /*[UIColor greenColor], */[UIColor blueColor], [UIColor yellowColor], [UIColor magentaColor], [UIColor orangeColor], [UIColor purpleColor]]];
+    NSArray *threeColors = [self getArrayWithRandomElementsFromArray:@[[UIColor lightGrayColor], [UIColor redColor], [UIColor blueColor], [UIColor yellowColor], [UIColor magentaColor], [UIColor orangeColor], [UIColor purpleColor]]];
     NSArray *threeShapes = [self getArrayWithRandomElementsFromArray:@[@(ShapeTypeCircle), @(ShapeTypeTriangle), @(ShapeTypeSquare), @(ShapeTypeRectangle), @(ShapeTypeDiamond), @(ShapeTypeHexagon), @(ShapeTypeStar), @(ShapeTypeHeart), @(ShapeTypeCross), @(ShapeTypeFlower)]];
     
     NSArray *holePositions = [self getArrayWithRandomPositions];

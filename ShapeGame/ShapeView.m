@@ -48,90 +48,42 @@
     CAShapeLayer *shapeLayer = nil;
     CGRect frameWithInset = CGRectIntegral(CGRectInset(self.frame, 3.0, 3.0));
     
+    CGRect shapeFrame = self.isHole ? self.frame : frameWithInset;
+    UIColor *fillColor =  self.isHole ? kBackgroundColor : self.shapeColor;
+    
     switch (shapeType) {
-        case ShapeTypeCircle: {
-            if (self.isHole) {
-                shapeLayer = [ShapeView circleInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView circleInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
+        case ShapeTypeCircle:
+            shapeLayer = [ShapeView circleInFrame:shapeFrame andFillColor:fillColor];
             break;
-        }
-        case ShapeTypeSquare: {
-            if (self.isHole) {
-                shapeLayer = [ShapeView rectangleInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView rectangleInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
+        case ShapeTypeSquare:
+            shapeLayer = [ShapeView squareInFrame:shapeFrame andFillColor:fillColor];
             break;
-        }
-        case ShapeTypeTriangle: {
-            if (self.isHole) {
-                shapeLayer = [ShapeView triangleInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView triangleInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
-            
+        case ShapeTypeTriangle:
+            shapeLayer = [ShapeView triangleInFrame:shapeFrame andFillColor:fillColor];
             break;
-        }
-        case ShapeTypeRectangle: {
-            if (self.isHole) {
-                shapeLayer = [ShapeView rectangleInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView rectangleInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
-            
+        case ShapeTypeRectangle:
+            shapeLayer = [ShapeView rectangleInFrame:shapeFrame andFillColor:fillColor];
             break;
-        }
-        case ShapeTypeDiamond : {
-            if (self.isHole) {
-                shapeLayer = [ShapeView diamondInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView diamondInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
+        case ShapeTypeDiamond :
+            shapeLayer = [ShapeView diamondInFrame:shapeFrame andFillColor:fillColor];
             break;
-        }
-        case ShapeTypeHexagon : {
-            if (self.isHole) {
-                shapeLayer = [ShapeView hexagonInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView hexagonInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
+        case ShapeTypeHexagon :
+            shapeLayer = [ShapeView hexagonInFrame:shapeFrame andFillColor:fillColor];
             break;
-        }
-        case ShapeTypeCross: {
-            if (self.isHole) {
-                shapeLayer = [ShapeView crossInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView crossInFrame:frameWithInset andFillColor:self.shapeColor];
-
-            }
+        case ShapeTypeCross:
+            shapeLayer = [ShapeView crossInFrame:shapeFrame andFillColor:fillColor];
             break;
-        }
-        case ShapeTypeStar: {
-            if (self.isHole) {
-                shapeLayer = [ShapeView starInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView starInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
+        case ShapeTypeStar:
+            shapeLayer = [ShapeView starInFrame:shapeFrame andFillColor:fillColor];
             break;
-        } case ShapeTypeHeart : {
-            if (self.isHole) {
-                shapeLayer = [ShapeView heartInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView heartInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
+        case ShapeTypeHeart :
+            shapeLayer = [ShapeView heartInFrame:shapeFrame andFillColor:fillColor];
             break;
-        } case ShapeTypeFlower : {
-            if (self.isHole) {
-                shapeLayer = [ShapeView flowerInFrame:self.frame andFillColor:kBackgroundColor];
-            } else {
-                shapeLayer = [ShapeView flowerInFrame:frameWithInset andFillColor:self.shapeColor];
-            }
+       case ShapeTypeFlower :
+            shapeLayer = [ShapeView flowerInFrame:shapeFrame andFillColor:fillColor];
             break;
-        }
         default:
-            shapeLayer = [ShapeView circleInFrame:frameWithInset andFillColor:self.shapeColor];
+            shapeLayer = [ShapeView circleInFrame:shapeFrame andFillColor:fillColor];
             break;
     }
     

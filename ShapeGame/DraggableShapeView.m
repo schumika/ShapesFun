@@ -11,6 +11,7 @@
 @interface DraggableShapeView ()
 
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, assign) CGFloat offsetFromHoleForMatch;
 
 @end
 
@@ -24,6 +25,8 @@
     
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     self.panGestureRecognizer.minimumNumberOfTouches = 1;
+    
+    self.offsetFromHoleForMatch = ceil(CGRectGetHeight([UIScreen mainScreen].bounds) / 10.0);
     
     return self;
 }
@@ -51,7 +54,7 @@
                                          panGesture.view.center.y + translation.y);
     [panGesture setTranslation:CGPointMake(0, 0) inView:self];
     
-    if ([DraggableShapeView distanceFromHole:self.holeCenter toShape:self.center] < 30.0) {
+    if ([DraggableShapeView distanceFromHole:self.holeCenter toShape:self.center] < self.offsetFromHoleForMatch) {
         
         self.center = CGPointMake(self.holeCenter.x + 3.0, self.holeCenter.y + 3.0);
         

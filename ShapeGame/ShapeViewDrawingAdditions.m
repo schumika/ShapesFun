@@ -10,7 +10,7 @@
 
 @implementation ShapeView (ShapeViewDrawing)
 
-+ (CAShapeLayer *)circleInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
++ (CAShapeLayer *)circleInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {    
     CGFloat shapeInset = 10.0;
     CGRect frame = [self maximumSquareFrameThatFits:CGRectInset(originalFrame,shapeInset, shapeInset)];
     CGFloat radius = frame.size.width / 2.0;
