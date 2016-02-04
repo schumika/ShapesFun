@@ -82,6 +82,9 @@
        case ShapeTypeFlower :
             shapeLayer = [ShapeView flowerInFrame:shapeFrame andFillColor:fillColor];
             break;
+        case ShapeTypeMoon:
+            shapeLayer = [ShapeView moonInFrame:shapeFrame andFillColor:fillColor];
+            break;
         default:
             shapeLayer = [ShapeView circleInFrame:shapeFrame andFillColor:fillColor];
             break;

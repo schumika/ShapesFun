@@ -265,6 +265,35 @@
     return flower;
 }
 
++ (CAShapeLayer *)moonInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
+    CGRect frame = [self maximumSquareFrameThatFits:originalFrame];
+    
+    CGFloat radius = rint(frame.size.width / 2.2);
+    
+    CGFloat angle = M_PI_2 * 0.40;      // how much of a crescent do you want (must be less than M_PI_2 and greater than zero)
+    
+    CGPoint center = CGPointMake(ceil(frame.size.width / 2.0) * 0.7, ceil(frame.size.height / 2.0));
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center
+                                                        radius:radius
+                                                    startAngle:-M_PI_2
+                                                      endAngle:M_PI_2
+                                                     clockwise:TRUE];
+    
+    [path addArcWithCenter:CGPointMake(center.x - radius * tan(angle), center.y)
+                    radius:radius / cosf(angle)
+                startAngle:M_PI_2 - angle
+                  endAngle:angle - M_PI_2
+                 clockwise:FALSE];
+    [path closePath];
+    
+    
+    CAShapeLayer *moon = [CAShapeLayer layer];
+    moon.path = path.CGPath;
+    moon.fillColor = fillColor.CGColor;
+    return moon;
+}
+
 + (CGRect)maximumSquareFrameThatFits:(CGRect)frame {
     CGFloat a = MIN(frame.size.width, frame.size.height);
     return CGRectIntegral(CGRectMake(frame.size.width/2 - a/2, frame.size.height/2 - a/2, a, a));

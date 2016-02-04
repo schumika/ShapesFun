@@ -20,6 +20,7 @@
 + (CAShapeLayer *)starInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor;
 + (CAShapeLayer *)heartInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor;
 + (CAShapeLayer *)flowerInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor;
++ (CAShapeLayer *)moonInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor;
 
 + (CGRect)maximumSquareFrameThatFits:(CGRect)frame;
 + (UIBezierPath *)bezierPathWithPolygonInRect:(CGRect)rect numberOfSides:(NSUInteger)numberOfSides;
