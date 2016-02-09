@@ -268,11 +268,15 @@
 + (CAShapeLayer *)moonInFrame:(CGRect)originalFrame andFillColor:(UIColor *)fillColor {
     CGRect frame = [self maximumSquareFrameThatFits:originalFrame];
     
-    CGFloat radius = rint(frame.size.width / 2.2);
+    CGFloat xOffset = (originalFrame.size.width - frame.size.width) / 2.0;
+    CGFloat yOffset = (originalFrame.size.height - frame.size.height) / 2.0;
+
+    
+    CGFloat radius = rint(frame.size.width / 2.5);
     
     CGFloat angle = M_PI_2 * 0.40;      // how much of a crescent do you want (must be less than M_PI_2 and greater than zero)
     
-    CGPoint center = CGPointMake(ceil(frame.size.width / 2.0) * 0.7, ceil(frame.size.height / 2.0));
+    CGPoint center = CGPointMake(xOffset + ceil((frame.size.width / 2.0) * 0.7), yOffset + ceil(frame.size.height / 2.0));
     
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center
                                                         radius:radius
@@ -280,8 +284,8 @@
                                                       endAngle:M_PI_2
                                                      clockwise:TRUE];
     
-    [path addArcWithCenter:CGPointMake(center.x - radius * tan(angle), center.y)
-                    radius:radius / cosf(angle)
+    [path addArcWithCenter:CGPointMake(ceil(center.x - radius * tan(angle)), center.y)
+                    radius:(radius) / cosf(angle)
                 startAngle:M_PI_2 - angle
                   endAngle:angle - M_PI_2
                  clockwise:FALSE];
